@@ -1,8 +1,17 @@
-package main.java.com.mirocidij.simpleconsoleapplication.generic.repository;
+package com.mirocidij.simpleconsoleapplication.generic.repository;
 
-import main.java.com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
+import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 
-public abstract class GenericRepository<
-    T extends Entity<ID>,
-    ID extends Number>
-    implements GenericRepositoryInterface<T, ID> {}
+import java.util.List;
+
+public interface GenericRepository<T extends Entity<TID>, TID extends Number> {
+    List<T> getAll();
+
+    T getById(TID id);
+
+    T save(T t);
+
+    T update(T t);
+
+    void deleteById(TID id);
+}

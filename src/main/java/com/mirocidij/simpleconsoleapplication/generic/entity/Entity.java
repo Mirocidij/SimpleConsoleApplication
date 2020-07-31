@@ -1,6 +1,11 @@
-package main.java.com.mirocidij.simpleconsoleapplication.generic.entity;
+package com.mirocidij.simpleconsoleapplication.generic.entity;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public abstract class Entity<T extends Number> {
+    @Getter
+    @Setter
     protected T id;
 
     @Override

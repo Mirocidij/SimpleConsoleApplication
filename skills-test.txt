@@ -1,0 +1,10 @@
+{"skillName":"Java", "id":1}
+{"skillName":"C++", "id": 2}
+{"skillName":"C#", "id": 3}
+{"skillName":"C", "id": 4}
+{"skillName":"Swift", "id": 5}
+{"skillName":"Ruby on rails", "id": 6}
+{"skillName":"Reading habr", "id": 7}
+{"skillName":"Do nothing", "id": 8}
+{"skillName":"Scrum", "id": 9}
+{"skillName":"Kanban", "id": 10}
