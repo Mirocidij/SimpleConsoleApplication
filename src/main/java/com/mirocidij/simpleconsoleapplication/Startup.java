@@ -2,6 +2,8 @@ package com.mirocidij.simpleconsoleapplication;
 
 import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
+import com.mirocidij.simpleconsoleapplication.repositories.AccountRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.DeveloperRepository;
 import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
 import com.mirocidij.simpleconsoleapplication.utils.ParseUtils;
 
@@ -12,12 +14,23 @@ import java.io.InputStreamReader;
 public class Startup {
     private static Gson gson;
     private static SkillRepository skillRepository;
+    private static AccountRepository accountRepository;
+    private static DeveloperRepository developerRepository;
 
     public static void main(String[] args) throws IOException {
         gson = new Gson();
         skillRepository = new SkillRepository(gson, "skills.txt");
+        accountRepository = new AccountRepository(gson, "accounts.txt");
+        developerRepository = new DeveloperRepository(gson, "developers.txt");
+
         System.out.println(
-            "1. show all skills\n2. add new skill\n3. delete skill\n4. update skill\n5. show skill by id\nq - to exit");
+            "1. show all skills\n" +
+                "2. add new skill\n" +
+                "3. delete skill\n" +
+                "4. update skill\n" +
+                "5. show skill by id\n" +
+                "q - to exit"
+        );
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             String command;
@@ -29,41 +42,47 @@ public class Startup {
                 switch (command) {
                     case "1" -> showAllSkills();
                     case "2" -> addNewSkill(in);
-                    case "3" -> {
-                        System.out.println("Delete mode");
-                        Long skillId = getSkillId(in);
-                        if (skillId == null) {
-                            System.out.println("Incorrect id");
-                        }
-                        removeSkillById(skillId);
-                    }
-                    case "4" -> {
-                        System.out.println("Edit mode");
-                        Long skillId = getSkillId(in);
-                        if (skillId == null) {
-                            System.out.println("Skill not found");
-                            continue;
-                        }
-                        var skillToEdit = skillRepository.getById(skillId);
-                        if (skillToEdit == null) {
-                            System.out.println("Skill not found");
-                            break;
-                        }
-                        editSkill(in, skillToEdit);
-                    }
-                    case "5" -> {
-                        System.out.println("Show mode");
-                        var skillId = getSkillId(in);
-                        var skill = skillRepository.getById(skillId);
-                        if (skill != null)
-                            System.out.println(skill);
-                        else
-                            System.out.println("Skill not found");
-                    }
+                    case "3" -> removeSkill(in);
+                    case "4" -> editSkill(in);
+                    case "5" -> showSkillById(in);
                 }
 
             } while (!command.equals("q"));
         }
+    }
+
+    private static void showSkillById(BufferedReader in) throws IOException {
+        System.out.println("Show mode");
+        var skillId = getSkillId(in);
+        var skill = skillRepository.getById(skillId);
+        if (skill != null)
+            System.out.println(skill);
+        else
+            System.out.println("Skill not found");
+    }
+
+    private static void editSkill(BufferedReader in) throws IOException {
+        System.out.println("Edit mode");
+        Long skillId = getSkillId(in);
+        if (skillId == null) {
+            System.out.println("Incorrect id");
+            return;
+        }
+        var skillToEdit = skillRepository.getById(skillId);
+        if (skillToEdit == null) {
+            System.out.println("Skill not found");
+            return;
+        }
+        editSkill(in, skillToEdit);
+    }
+
+    private static void removeSkill(BufferedReader in) throws IOException {
+        System.out.println("Delete mode");
+        Long skillId = getSkillId(in);
+        if (skillId == null) {
+            System.out.println("Incorrect id");
+        }
+        removeSkillById(skillId);
     }
 
     private static void editSkill(BufferedReader in, Skill skillToEdit) throws IOException {
