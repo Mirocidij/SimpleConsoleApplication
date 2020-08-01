@@ -6,6 +6,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
 public class Skill extends Entity<Long> {
     @Getter
@@ -19,5 +21,10 @@ public class Skill extends Entity<Long> {
             "skillName='" + skillName + '\'' +
             ", id=" + id +
             '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
