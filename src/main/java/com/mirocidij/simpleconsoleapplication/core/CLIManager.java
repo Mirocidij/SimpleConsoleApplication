@@ -42,7 +42,7 @@ public class CLIManager implements ICLIManager {
         init();
     }
 
-    public void init() {
+    private void init() {
         generalView.init(this);
         skillView.init(this);
         accountView.init(this);
@@ -67,7 +67,7 @@ public class CLIManager implements ICLIManager {
     }
 
     @Override
-    public void work() throws IOException {
+    public void start() throws IOException {
         resetState();
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {

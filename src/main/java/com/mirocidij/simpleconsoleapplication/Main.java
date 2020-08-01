@@ -32,7 +32,6 @@ public class Main {
         DeveloperView developerView = new DeveloperView(developerController);
 
         ICLIManager icliManager = new CLIManager(skillView, accountView, developerView);
-        icliManager.init();
-        icliManager.work();
+        icliManager.start();
     }
 }

@@ -5,9 +5,7 @@ import java.io.IOException;
 public interface ICLIManager {
     void switchState(int state);
 
-    void init();
-
     void resetState();
 
-    void work() throws IOException;
+    void start() throws IOException;
 }

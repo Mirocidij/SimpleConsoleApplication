@@ -9,3 +9,4 @@
 {"skillName":"Another skill","id":12}
 {"skillName":"My skill","id":13}
 {"skillName":"New Skill","id":14}
+{"skillName":"New skill via skill controller","id":15}
