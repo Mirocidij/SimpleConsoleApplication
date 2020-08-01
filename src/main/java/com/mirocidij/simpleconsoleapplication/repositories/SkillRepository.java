@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.generic.repository.GenericRepository;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
+import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
 import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
 import java.io.BufferedReader;
@@ -16,7 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class SkillRepository implements GenericRepository<Skill, Long> {
@@ -37,32 +37,16 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
 
     @Override
     public Skill getById(Long id) {
-        try {
-            var skills = getData();
-
-            return skills
-                .stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+        return EntityUtils.findById(id, getData());
     }
 
     @Override
     public Skill save(Skill skill) {
         var skills = getData();
 
-        long maxId = skills
-            .stream()
-            .map(Entity::getId)
-            .max(Long::compare)
-            .get();
-
-        skill.setId(maxId + 1);
-
+        skill.setId(getNextSkillId(skills));
         skills.add(skill);
+
         saveChanges(skills);
 
         return skill;
@@ -72,12 +56,7 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
     public Skill update(Skill skill) {
         var skills = getData();
 
-        var skillToUpdate = skills
-            .stream()
-            .filter(x -> x.getId().equals(skill.getId()))
-            .findFirst()
-            .get();
-
+        var skillToUpdate = EntityUtils.findById(skill.getId(), skills);
         skillToUpdate.setSkillName(skill.getSkillName());
 
         saveChanges(skills);
@@ -96,6 +75,14 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
         }
 
         return removed;
+    }
+
+    private Long getNextSkillId(List<Skill> skills) {
+        return skills
+            .stream()
+            .map(Entity::getId)
+            .max(Long::compare)
+            .orElse(0L) + 1;
     }
 
     private List<Skill> getData() {

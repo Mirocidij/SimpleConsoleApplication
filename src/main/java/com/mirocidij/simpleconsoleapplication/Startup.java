@@ -17,7 +17,7 @@ public class Startup {
         gson = new Gson();
         skillRepository = new SkillRepository(gson, "skills.txt");
         System.out.println(
-            "1. show all skills\n2. add new skill\n3. delete skill\n4. update skill\n");
+            "1. show all skills\n2. add new skill\n3. delete skill\n4. update skill\n5. show skill by id\nq - to exit");
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             String command;
@@ -41,7 +41,8 @@ public class Startup {
                         System.out.println("Edit mode");
                         Long skillId = getSkillId(in);
                         if (skillId == null) {
-                            System.out.println("Incorrect id");
+                            System.out.println("Skill not found");
+                            continue;
                         }
                         var skillToEdit = skillRepository.getById(skillId);
                         if (skillToEdit == null) {
@@ -49,6 +50,15 @@ public class Startup {
                             break;
                         }
                         editSkill(in, skillToEdit);
+                    }
+                    case "5" -> {
+                        System.out.println("Show mode");
+                        var skillId = getSkillId(in);
+                        var skill = skillRepository.getById(skillId);
+                        if (skill != null)
+                            System.out.println(skill);
+                        else
+                            System.out.println("Skill not found");
                     }
                 }
 
