@@ -11,6 +11,7 @@ import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
 import com.mirocidij.simpleconsoleapplication.utils.ParseUtils;
 import com.mirocidij.simpleconsoleapplication.views.AccountView;
 import com.mirocidij.simpleconsoleapplication.views.DeveloperView;
+import com.mirocidij.simpleconsoleapplication.views.GeneralView;
 import com.mirocidij.simpleconsoleapplication.views.SkillView;
 
 import java.io.BufferedReader;
@@ -45,28 +46,27 @@ public class Startup {
 
     public static void main(String[] args) throws IOException {
         init();
-        System.out.println(menu);
+        showMenu();
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             String command;
 
-            do {
+            while (true) {
                 System.out.print("Command >> ");
                 command = in.readLine();
                 System.out.println();
 
                 switch (command) {
-                    case "1" -> showAllSkills();
-                    case "2" -> addNewSkill(in);
-                    case "3" -> removeSkill(in);
-                    case "4" -> editSkill(in);
-                    case "5" -> showSkillById(in);
-                    case "help" -> System.out.println(menu);
-                    case "quit" -> System.out.println("Good bye!");
+                    case SkillView.SHOW_ALL -> showAllSkills();
+                    case SkillView.ADD_NEW -> addNewSkill(in);
+                    case SkillView.REMOVE -> removeSkill(in);
+                    case SkillView.EDIT -> editSkill(in);
+                    case SkillView.SHOW_BY_ID -> showSkillById(in);
+                    case GeneralView.MENU -> showMenu();
+                    case GeneralView.QUIT -> quit();
                     default -> System.out.println("Unknown command! You can try \"help\"");
                 }
-
-            } while (!command.equals("quit"));
+            }
         }
     }
 
@@ -154,5 +154,14 @@ public class Startup {
             System.out.println("Item removed completely: " + skillToRemove);
         else
             System.out.println("Item not found");
+    }
+
+    private static void quit() {
+        System.out.println("Good bye!");
+        System.exit(0);
+    }
+
+    private static void showMenu() {
+        System.out.println(menu);
     }
 }
