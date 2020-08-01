@@ -13,5 +13,5 @@ public interface GenericRepository<T extends Entity<TID>, TID extends Number> {
 
     T update(T t);
 
-    void deleteById(TID id);
+    boolean deleteById(TID id);
 }

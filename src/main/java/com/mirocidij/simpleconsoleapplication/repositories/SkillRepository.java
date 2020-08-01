@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class SkillRepository implements GenericRepository<Skill, Long> {
     private final List<Skill> skillList = new ArrayList<>();
@@ -36,13 +37,17 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
 
     @Override
     public Skill getById(Long id) {
-        refreshData();
+        try {
+            refreshData();
 
-        return skillList
-            .stream()
-            .filter(x -> x.getId().equals(id))
-            .findFirst()
-            .get();
+            return skillList
+                .stream()
+                .filter(x -> x.getId().equals(id))
+                .findFirst()
+                .get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     @Override
@@ -67,18 +72,25 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
     public Skill update(Skill skill) {
         refreshData();
 
-        deleteById(skill.getId());
+        var skillToUpdate = getById(skill.getId());
+        skillToUpdate.setSkillName(skill.getSkillName());
 
-        return save(skill);
+        saveChanges();
+
+        return skillToUpdate;
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         refreshData();
 
-        skillList.removeIf(skill -> skill.getId().equals(id));
+        var removed = skillList.removeIf(skill -> skill.getId().equals(id));
 
-        saveChanges();
+        if (removed) {
+            saveChanges();
+        }
+
+        return removed;
     }
 
     private void refreshData() {

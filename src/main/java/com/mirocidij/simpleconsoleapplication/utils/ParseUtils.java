@@ -8,4 +8,12 @@ public class ParseUtils {
             return null;
         }
     }
+
+    public static Long TryParseLong(String num) {
+        try {
+            return Long.parseLong(num);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 }
