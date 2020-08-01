@@ -27,27 +27,17 @@ public class Startup {
                 command = in.readLine();
 
                 switch (command) {
-                    case "1": {
-                        showAllSkills();
-
-                        break;
-                    }
-                    case "2": {
-                        addNewSkill(in);
-
-                        break;
-                    }
-                    case "3": {
+                    case "1" -> showAllSkills();
+                    case "2" -> addNewSkill(in);
+                    case "3" -> {
                         System.out.println("Delete mode");
                         Long skillId = getSkillId(in);
                         if (skillId == null) {
                             System.out.println("Incorrect id");
                         }
                         removeSkillById(skillId);
-
-                        break;
                     }
-                    case "4": {
+                    case "4" -> {
                         System.out.println("Edit mode");
                         Long skillId = getSkillId(in);
                         if (skillId == null) {
@@ -59,7 +49,6 @@ public class Startup {
                             break;
                         }
                         editSkill(in, skillToEdit);
-                        break;
                     }
                 }
 
