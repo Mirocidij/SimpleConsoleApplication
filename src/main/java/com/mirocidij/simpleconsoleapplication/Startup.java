@@ -1,11 +1,17 @@
 package com.mirocidij.simpleconsoleapplication;
 
 import com.google.gson.Gson;
+import com.mirocidij.simpleconsoleapplication.controllers.AccountController;
+import com.mirocidij.simpleconsoleapplication.controllers.DeveloperController;
+import com.mirocidij.simpleconsoleapplication.controllers.SkillController;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
 import com.mirocidij.simpleconsoleapplication.repositories.AccountRepository;
 import com.mirocidij.simpleconsoleapplication.repositories.DeveloperRepository;
 import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
 import com.mirocidij.simpleconsoleapplication.utils.ParseUtils;
+import com.mirocidij.simpleconsoleapplication.views.AccountView;
+import com.mirocidij.simpleconsoleapplication.views.DeveloperView;
+import com.mirocidij.simpleconsoleapplication.views.SkillView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,24 +19,33 @@ import java.io.InputStreamReader;
 
 public class Startup {
     private static Gson gson;
+    // repo
     private static SkillRepository skillRepository;
     private static AccountRepository accountRepository;
     private static DeveloperRepository developerRepository;
+    // controllers
+    private static SkillController skillController;
+    private static AccountController accountController;
+    private static DeveloperController developerController;
+    // views
+    private static SkillView skillView;
+    private static AccountView accountView;
+    private static DeveloperView developerView;
+
+    private static final String menu =
+        """
+            1. show all skills
+            2. add new skill
+            3. delete skill
+            4. update skill
+            5. show skill by id
+            help - menu
+            quit - to exit
+            """;
 
     public static void main(String[] args) throws IOException {
-        gson = new Gson();
-        skillRepository = new SkillRepository(gson, "skills.txt");
-        accountRepository = new AccountRepository(gson, "accounts.txt");
-        developerRepository = new DeveloperRepository(gson, "developers.txt");
-
-        System.out.println(
-            "1. show all skills\n" +
-                "2. add new skill\n" +
-                "3. delete skill\n" +
-                "4. update skill\n" +
-                "5. show skill by id\n" +
-                "q - to exit"
-        );
+        init();
+        System.out.println(menu);
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             String command;
@@ -38,6 +53,7 @@ public class Startup {
             do {
                 System.out.print("Command >> ");
                 command = in.readLine();
+                System.out.println();
 
                 switch (command) {
                     case "1" -> showAllSkills();
@@ -45,10 +61,29 @@ public class Startup {
                     case "3" -> removeSkill(in);
                     case "4" -> editSkill(in);
                     case "5" -> showSkillById(in);
+                    case "help" -> System.out.println(menu);
+                    case "quit" -> System.out.println("Good bye!");
+                    default -> System.out.println("Unknown command! You can try \"help\"");
                 }
 
-            } while (!command.equals("q"));
+            } while (!command.equals("quit"));
         }
+    }
+
+    private static void init() {
+        gson = new Gson();
+        // repo
+        skillRepository = new SkillRepository(gson, "skills.txt");
+        accountRepository = new AccountRepository(gson, "accounts.txt");
+        developerRepository = new DeveloperRepository(gson, "developers.txt");
+        // controllers
+        skillController = new SkillController(skillRepository);
+        accountController = new AccountController(accountRepository);
+        developerController = new DeveloperController(developerRepository);
+        // view
+        skillView = new SkillView(skillController);
+        accountView = new AccountView(accountController);
+        developerView = new DeveloperView(developerController);
     }
 
     private static void showSkillById(BufferedReader in) throws IOException {
