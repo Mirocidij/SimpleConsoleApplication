@@ -11,9 +11,10 @@ public abstract class Entity<T extends Number> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Entity<?> entity) {
-            return this.id.equals(entity.id);
+            if (id != null && entity.id != null)
+                return id.equals(entity.id);
         }
 
-        return this.equals(obj);
+        return super.equals(obj);
     }
 }

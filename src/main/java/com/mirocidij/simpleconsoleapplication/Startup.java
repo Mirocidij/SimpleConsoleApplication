@@ -14,10 +14,6 @@ public class Startup {
     private static SkillRepository skillRepository;
 
     public static void main(String[] args) throws IOException {
-        Skill skill1 = new Skill("a");
-        Skill skill2 = new Skill("b");
-        skill1.equals(skill2);
-
         gson = new Gson();
         skillRepository = new SkillRepository(gson, "skills.txt");
         System.out.println(
