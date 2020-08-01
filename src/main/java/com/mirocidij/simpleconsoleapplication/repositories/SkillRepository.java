@@ -17,9 +17,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class SkillRepository implements GenericRepository<Skill, Long> {
-    private final List<Skill> skillList = new ArrayList<>();
     private final Path path;
     private final String filePath;
     private final Gson gson;
@@ -32,17 +32,15 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
 
     @Override
     public List<Skill> getAll() {
-        refreshData();
-
-        return skillList;
+        return getData();
     }
 
     @Override
     public Skill getById(Long id) {
         try {
-            refreshData();
+            var skills = getData();
 
-            return skillList
+            return skills
                 .stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
@@ -54,9 +52,9 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
 
     @Override
     public Skill save(Skill skill) {
-        refreshData();
+        var skills = getData();
 
-        long maxId = skillList
+        long maxId = skills
             .stream()
             .map(Entity::getId)
             .max(Long::compare)
@@ -64,46 +62,51 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
 
         skill.setId(maxId + 1);
 
-        skillList.add(skill);
-        saveChanges();
+        skills.add(skill);
+        saveChanges(skills);
 
         return skill;
     }
 
     @Override
     public Skill update(Skill skill) {
-        refreshData();
+        var skills = getData();
 
-        var skillToUpdate = getById(skill.getId());
+        var skillToUpdate = skills
+            .stream()
+            .filter(x -> x.getId().equals(skill.getId()))
+            .findFirst()
+            .get();
+
         skillToUpdate.setSkillName(skill.getSkillName());
 
-        saveChanges();
+        saveChanges(skills);
 
         return skillToUpdate;
     }
 
     @Override
     public boolean deleteById(Long id) {
-        refreshData();
+        var skills = getData();
 
-        var removed = skillList.removeIf(skill -> skill.getId().equals(id));
+        var removed = skills.removeIf(skill -> skill.getId().equals(id));
 
         if (removed) {
-            saveChanges();
+            saveChanges(skills);
         }
 
         return removed;
     }
 
-    private void refreshData() {
-        skillList.clear();
+    private List<Skill> getData() {
+        var result = new ArrayList<Skill>();
 
         try (BufferedReader in = Files.newBufferedReader(path)) {
-            String json = "";
-            while (json != null) {
-                json = in.readLine();
-                var skill = gson.fromJson(json, Skill.class);
-                if (skill != null) skillList.add(skill);
+            var lines = in.lines().collect(Collectors.toList());
+            var skills = gson.fromJson(in, Skill.class);
+            for (String line : lines) {
+                var skill = gson.fromJson(line, Skill.class);
+                if (skill != null) result.add(skill);
             }
         } catch (NoSuchFileException e) {
             System.out.println("Missing file " + path.getFileName() + ": " + e);
@@ -111,12 +114,14 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
             System.out.println("I/O Error");
             e.printStackTrace();
         }
+
+        return result;
     }
 
-    private void saveChanges() {
+    private void saveChanges(List<Skill> skillsToSave) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath))) {
             String json;
-            for (Skill skill : skillList) {
+            for (Skill skill : skillsToSave) {
                 json = gson.toJson(skill) + '\n';
                 out.write(json);
             }
