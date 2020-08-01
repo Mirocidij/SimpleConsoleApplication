@@ -1,9 +1,12 @@
 package com.mirocidij.simpleconsoleapplication.views;
 
 import com.mirocidij.simpleconsoleapplication.controllers.AccountController;
-import com.mirocidij.simpleconsoleapplication.views.general.AbstractViewState;
+import com.mirocidij.simpleconsoleapplication.views.general.AbstractView;
 
-public class AccountView extends AbstractViewState {
+import java.io.BufferedReader;
+import java.io.IOException;
+
+public class AccountView extends AbstractView {
     private final AccountController accountController;
 
     public AccountView(AccountController accountController) {
@@ -12,7 +15,7 @@ public class AccountView extends AbstractViewState {
     }
 
     @Override
-    public void process(String command) {
-
+    public void process(String command, BufferedReader in) throws IOException {
+        super.process(command, in);
     }
 }

@@ -62,7 +62,7 @@ public class Startup {
                     case SkillView.REMOVE -> removeSkill(in);
                     case SkillView.EDIT -> editSkill(in);
                     case SkillView.SHOW_BY_ID -> showSkillById(in);
-                    case GeneralView.MENU -> showMenu();
+                    case GeneralView.HELP -> showMenu();
                     case GeneralView.QUIT -> quit();
                     default -> System.out.println("Unknown command! You can try \"help\"");
                 }
