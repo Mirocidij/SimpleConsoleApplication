@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.generic.repository.GenericRepository;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
+import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,12 +21,13 @@ import java.util.NoSuchElementException;
 public class SkillRepository implements GenericRepository<Skill, Long> {
     private final List<Skill> skillList = new ArrayList<>();
     private final Path path;
-    private final String filePath = "./skills.txt";
+    private final String filePath;
     private final Gson gson;
 
-    public SkillRepository(Gson pGson) {
-        gson = pGson;
-        path = Paths.get(filePath);
+    public SkillRepository(Gson gson, String fileName) {
+        this.gson = gson;
+        this.filePath = PathBuilder.buildPath(fileName);
+        this.path = Paths.get(filePath);
     }
 
     @Override

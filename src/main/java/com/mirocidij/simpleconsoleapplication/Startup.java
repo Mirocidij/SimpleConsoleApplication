@@ -15,7 +15,7 @@ public class Startup {
 
     public static void main(String[] args) throws IOException {
         gson = new Gson();
-        skillRepository = new SkillRepository(gson);
+        skillRepository = new SkillRepository(gson, "skills.txt");
         System.out.println(
             "1. show all skills\n2. add new skill\n3. delete skill\n4. update skill\n");
 
