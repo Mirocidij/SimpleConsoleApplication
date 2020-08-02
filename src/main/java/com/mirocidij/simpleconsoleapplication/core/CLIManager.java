@@ -1,61 +1,40 @@
 package com.mirocidij.simpleconsoleapplication.core;
 
-import com.mirocidij.simpleconsoleapplication.views.AccountView;
-import com.mirocidij.simpleconsoleapplication.views.DeveloperView;
 import com.mirocidij.simpleconsoleapplication.views.GeneralView;
-import com.mirocidij.simpleconsoleapplication.views.SkillView;
 import com.mirocidij.simpleconsoleapplication.views.general.IView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class CLIManager implements ICLIManager {
     public final GeneralView generalView = new GeneralView();
-    public final SkillView skillView;
-    public final AccountView accountView;
-    public final DeveloperView developerView;
-    // State name
-    public static final int SKILL_VIEW = 615;
-    public static final int ACCOUNT_VIEW = 179;
-    public static final int DEVELOPER_VIEW = 886;
-    // Current state
     private IView state;
+    private final HashMap<Class, IView> viewResolver = new HashMap<>();
 
-    public CLIManager(
-        SkillView skillView,
-        AccountView accountView,
-        DeveloperView developerView
-    ) {
+    public CLIManager(IView... views) {
         if (
-            skillView == null
-                || accountView == null
-                || developerView == null
+            Arrays.stream(views).anyMatch(Objects::isNull)
         ) {
             throw new IllegalArgumentException();
         }
-
-        this.skillView = skillView;
-        this.accountView = accountView;
-        this.developerView = developerView;
-
-
         generalView.init(this);
-        skillView.init(this);
-        accountView.init(this);
-        developerView.init(this);
+        viewResolver.put(GeneralView.class, generalView);
+
+        for (IView view : views) {
+            view.init(this);
+            viewResolver.put(view.getClass(), view);
+        }
     }
 
     @Override
-    public void switchState(int stateNumber) {
-        var state = switch (stateNumber) {
-            case SKILL_VIEW -> skillView;
-            case ACCOUNT_VIEW -> accountView;
-            case DEVELOPER_VIEW -> developerView;
-            default -> generalView;
-        };
-
-        setState(state);
+    public void switchState(Class viewType) {
+        if (viewResolver.containsKey(viewType)) {
+            setState(viewResolver.get(viewType));
+        }
     }
 
     @Override
