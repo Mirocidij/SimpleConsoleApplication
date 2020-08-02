@@ -46,6 +46,10 @@ public class SkillView extends AbstractView {
 
     private void showAllSkills() {
         var skills = skillController.getAllSkills();
+
+        if (skills.size() == 0)
+            System.out.println("Skills not found");
+
         skills.forEach(System.out::println);
     }
 

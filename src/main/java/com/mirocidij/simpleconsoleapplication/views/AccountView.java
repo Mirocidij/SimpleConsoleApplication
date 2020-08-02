@@ -48,6 +48,10 @@ public class AccountView extends AbstractView {
 
     private void showAllAccounts() {
         var accounts = accountController.getAllAccounts();
+
+        if (accounts.size() == 0)
+            System.out.println("Accounts not found");
+
         accounts.forEach(System.out::println);
     }
 
