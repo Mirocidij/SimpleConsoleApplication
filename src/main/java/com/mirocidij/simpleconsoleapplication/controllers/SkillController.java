@@ -4,6 +4,7 @@ import com.mirocidij.simpleconsoleapplication.models.Skill;
 import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SkillController {
     private final SkillRepository skillRepository;
@@ -30,7 +31,16 @@ public class SkillController {
         return skillRepository.deleteById(skillId);
     }
 
-    public Skill updateSkill(Skill skillToEdit) {
-        return skillRepository.update(skillToEdit);
+    public Skill updateSkill(Skill skillToUpdate) {
+        return skillRepository.update(skillToUpdate);
+    }
+
+    public List<Skill> findSkillByName(String skillName) {
+        var skills = skillRepository.getAll();
+
+        return skills
+            .stream()
+            .filter(x -> x.getSkillName().contains(skillName))
+            .collect(Collectors.toList());
     }
 }

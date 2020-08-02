@@ -15,7 +15,7 @@ public abstract class AbstractView implements IView {
         """
             help - help
             back - to main menu
-            quit - exit
+            quit - quit
             """;
 
     @Override
@@ -25,7 +25,7 @@ public abstract class AbstractView implements IView {
 
     @Override
     public void showHelp() {
-        System.out.println(help);
+        System.out.print(help);
     }
 
     private void showUnknownCommand() {
@@ -49,6 +49,5 @@ public abstract class AbstractView implements IView {
             case QUIT -> quit();
             default -> showUnknownCommand();
         }
-        showUnknownCommand();
     }
 }

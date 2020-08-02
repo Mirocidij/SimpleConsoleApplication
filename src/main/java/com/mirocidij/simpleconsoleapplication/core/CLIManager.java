@@ -4,7 +4,6 @@ import com.mirocidij.simpleconsoleapplication.views.AccountView;
 import com.mirocidij.simpleconsoleapplication.views.DeveloperView;
 import com.mirocidij.simpleconsoleapplication.views.GeneralView;
 import com.mirocidij.simpleconsoleapplication.views.SkillView;
-import com.mirocidij.simpleconsoleapplication.views.general.AbstractView;
 import com.mirocidij.simpleconsoleapplication.views.general.IView;
 
 import java.io.BufferedReader;
@@ -39,10 +38,8 @@ public class CLIManager implements ICLIManager {
         this.skillView = skillView;
         this.accountView = accountView;
         this.developerView = developerView;
-        init();
-    }
 
-    private void init() {
+
         generalView.init(this);
         skillView.init(this);
         accountView.init(this);
@@ -72,17 +69,21 @@ public class CLIManager implements ICLIManager {
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
             String command;
-            System.out.print("Command >> ");
 
             while (true) {
+                System.out.println();
+                System.out.print("Command >> ");
                 command = in.readLine();
+                System.out.println();
                 state.process(command, in);
             }
         }
     }
 
-    private void setState(AbstractView state) {
-        state.showHelp();
-        this.state = state;
+    private void setState(IView state) {
+        if (this.state != state) {
+            state.showHelp();
+            this.state = state;
+        }
     }
 }

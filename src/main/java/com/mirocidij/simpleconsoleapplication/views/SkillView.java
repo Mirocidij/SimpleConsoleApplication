@@ -13,6 +13,8 @@ public class SkillView extends AbstractView {
     public static final String REMOVE = "3";
     public static final String EDIT = "4";
     public static final String SHOW_BY_ID = "5";
+    public static final String SEARCH_SKILL_BY_NAME = "6";
+
     private final SkillController skillController;
 
     public SkillView(SkillController skillController) {
@@ -25,6 +27,7 @@ public class SkillView extends AbstractView {
                 3 - remove skill
                 4 - edit skill
                 5 - show skill
+                6 - search skill by name
                 """ + help;
     }
 
@@ -36,6 +39,7 @@ public class SkillView extends AbstractView {
             case REMOVE -> removeSkill(in);
             case EDIT -> editSkill(in);
             case SHOW_BY_ID -> showSkillById(in);
+            case SEARCH_SKILL_BY_NAME -> searchSkillByName(in);
             default -> super.process(command, in);
         }
     }
@@ -46,7 +50,7 @@ public class SkillView extends AbstractView {
     }
 
     private void addNewSkill(BufferedReader in) throws IOException {
-        System.out.print("Skill name to add >> ");
+        System.out.print("Type skill name to add >> ");
         var skillName = in.readLine();
 
         var skill = skillController.createSkill(skillName);
@@ -58,17 +62,10 @@ public class SkillView extends AbstractView {
     }
 
     private void removeSkill(BufferedReader in) throws IOException {
-        System.out.println("Delete mode");
         Long skillId = getSkillId(in);
-        if (skillId == null) {
-            System.out.println("Incorrect id");
-        }
-        removeSkillById(skillId);
-    }
+        if (skillId == null) return;
 
-    private Long getSkillId(BufferedReader in) throws IOException {
-        System.out.print("Skill id >> ");
-        return ParseUtils.TryParseLong(in.readLine());
+        removeSkillById(skillId);
     }
 
     private void removeSkillById(Long skillId) {
@@ -81,12 +78,9 @@ public class SkillView extends AbstractView {
     }
 
     private void editSkill(BufferedReader in) throws IOException {
-        System.out.println("Edit mode");
         Long skillId = getSkillId(in);
-        if (skillId == null) {
-            System.out.println("Incorrect id");
-            return;
-        }
+        if (skillId == null) return;
+
         var skillToEdit = skillController.getSkillById(skillId);
         if (skillToEdit == null) {
             System.out.println("Skill not found");
@@ -97,17 +91,45 @@ public class SkillView extends AbstractView {
         System.out.print("New skill name >> ");
         var newSkillName = in.readLine();
         skillToEdit.setSkillName(newSkillName);
-        skillController.updateSkill(skillToEdit);
-        System.out.println("New skill state: " + skillToEdit);
+
+        var updatedSkill = skillController.updateSkill(skillToEdit);
+        System.out.println("New skill state: " + updatedSkill);
     }
 
     private void showSkillById(BufferedReader in) throws IOException {
-        System.out.println("Show mode");
         var skillId = getSkillId(in);
+        if (skillId == null) return;
+
         var skill = skillController.getSkillById(skillId);
         if (skill != null)
             System.out.println(skill);
         else
             System.out.println("Skill not found");
     }
+
+    private void searchSkillByName(BufferedReader in) throws IOException {
+        System.out.println("skill name to find skill >> ");
+        var skillName = in.readLine();
+        var foundSkills = skillController.findSkillByName(skillName);
+
+        if (foundSkills.size() == 0)
+            System.out.println("No skills was found");
+        else
+            foundSkills.forEach(System.out::println);
+    }
+
+    // utils methods
+
+    private Long getSkillId(BufferedReader in) throws IOException {
+        System.out.print("Skill id >> ");
+        var id = ParseUtils.TryParseLong(in.readLine());
+
+        if (id == null) {
+            System.out.println("Incorrect id");
+        }
+
+        return id;
+    }
+
+
 }

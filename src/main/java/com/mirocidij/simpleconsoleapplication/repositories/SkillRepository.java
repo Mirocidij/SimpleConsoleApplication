@@ -32,46 +32,44 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
 
     @Override
     public List<Skill> getAll() {
-        return getData();
+        return getSkillsFromFile();
     }
 
     @Override
     public Skill getById(Long id) {
-        return EntityUtils.findById(id, getData());
+        return EntityUtils.findById(id, getSkillsFromFile());
     }
 
     @Override
     public Skill save(Skill skill) {
-        var skills = getData();
+        var skills = getSkillsFromFile();
 
         skill.setId(getNextSkillId(skills));
         skills.add(skill);
 
-        saveChanges(skills);
+        saveSkillsToFile(skills);
 
         return skill;
     }
 
     @Override
     public Skill update(Skill skill) {
-        var skills = getData();
-
+        var skills = getSkillsFromFile();
         var skillToUpdate = EntityUtils.findById(skill.getId(), skills);
+
         skillToUpdate.setSkillName(skill.getSkillName());
-
-        saveChanges(skills);
-
+        saveSkillsToFile(skills);
         return skillToUpdate;
     }
 
     @Override
     public boolean deleteById(Long id) {
-        var skills = getData();
+        var skills = getSkillsFromFile();
 
         var removed = skills.removeIf(skill -> skill.getId().equals(id));
 
         if (removed) {
-            saveChanges(skills);
+            saveSkillsToFile(skills);
         }
 
         return removed;
@@ -85,12 +83,11 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
             .orElse(0L) + 1;
     }
 
-    private List<Skill> getData() {
+    private List<Skill> getSkillsFromFile() {
         var result = new ArrayList<Skill>();
 
         try (BufferedReader in = Files.newBufferedReader(path)) {
             var lines = in.lines().collect(Collectors.toList());
-            var skills = gson.fromJson(in, Skill.class);
             for (String line : lines) {
                 var skill = gson.fromJson(line, Skill.class);
                 if (skill != null) result.add(skill);
@@ -105,7 +102,7 @@ public class SkillRepository implements GenericRepository<Skill, Long> {
         return result;
     }
 
-    private void saveChanges(List<Skill> skillsToSave) {
+    private void saveSkillsToFile(List<Skill> skillsToSave) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath))) {
             String json;
             for (Skill skill : skillsToSave) {
