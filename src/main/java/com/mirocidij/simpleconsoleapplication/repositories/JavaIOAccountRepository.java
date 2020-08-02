@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AccountRepository implements GenericRepository<Account, Long> {
+public class JavaIOAccountRepository implements GenericRepository<Account, Long> {
     private final Path path;
     private final String filePath;
     private final Gson gson;
 
-    public AccountRepository(Gson gson, String fileName) {
+    public JavaIOAccountRepository(Gson gson, String fileName) {
         this.gson = gson;
         this.filePath = PathBuilder.buildPath(fileName);
         this.path = Paths.get(filePath);

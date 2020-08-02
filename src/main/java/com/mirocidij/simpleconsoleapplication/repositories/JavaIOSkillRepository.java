@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SkillRepository implements GenericRepository<Skill, Long> {
+public class JavaIOSkillRepository implements GenericRepository<Skill, Long> {
     private final Path path;
     private final String filePath;
     private final Gson gson;
 
-    public SkillRepository(Gson gson, String fileName) {
+    public JavaIOSkillRepository(Gson gson, String fileName) {
         this.gson = gson;
         this.filePath = PathBuilder.buildPath(fileName);
         this.path = Paths.get(filePath);

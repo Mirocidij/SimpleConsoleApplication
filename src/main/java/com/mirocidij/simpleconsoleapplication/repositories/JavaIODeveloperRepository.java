@@ -9,12 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class DeveloperRepository implements GenericRepository<Developer, Long> {
+public class JavaIODeveloperRepository implements GenericRepository<Developer, Long> {
     private final Path path;
     private final String filePath;
     private final Gson gson;
 
-    public DeveloperRepository(Gson gson, String fileName) {
+    public JavaIODeveloperRepository(Gson gson, String fileName) {
         this.gson = gson;
         this.filePath = PathBuilder.buildPath(fileName);
         this.path = Paths.get(filePath);
