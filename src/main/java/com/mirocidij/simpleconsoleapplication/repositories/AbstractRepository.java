@@ -6,6 +6,8 @@ import com.mirocidij.simpleconsoleapplication.generic.repository.GenericReposito
 import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -47,5 +49,17 @@ public abstract class AbstractRepository
         }
 
         return result;
+    }
+
+    protected void saveDataToFile(List<T> dataList) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath))) {
+            String json;
+            for (T data : dataList) {
+                json = gson.toJson(data) + '\n';
+                out.write(json);
+            }
+        } catch (IOException e) {
+            System.out.println("I/O Error: " + e);
+        }
     }
 }
