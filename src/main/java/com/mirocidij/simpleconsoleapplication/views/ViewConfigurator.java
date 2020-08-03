@@ -20,7 +20,8 @@ public class ViewConfigurator {
         // controllers
         SkillController skillController = new SkillController(skillRepository);
         AccountController accountController = new AccountController(accountRepository);
-        DeveloperController developerController = new DeveloperController(developerRepository);
+        DeveloperController developerController =
+            new DeveloperController(developerRepository, skillRepository, accountRepository);
         // views
         SkillView skillView = new SkillView(skillController);
         AccountView accountView = new AccountView(accountController);

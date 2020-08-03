@@ -15,12 +15,16 @@ public class Account extends Entity<Long> {
     @Setter
     @NonNull
     private String countryName;
+    @Getter
+    @Setter
+    private boolean isFree = true;
 
     @Override
     public String toString() {
         return "Account{" +
             "accountStatus=" + accountStatus +
             ", countryName='" + countryName + '\'' +
+            ", isFree=" + isFree +
             ", id=" + id +
             '}';
     }

@@ -1,16 +1,3 @@
-{"accountStatus":"BANNED","countryName":"Country 0","id":0}
-{"accountStatus":"ACTIVE","countryName":"Country 1","id":1}
-{"accountStatus":"ACTIVE","countryName":"Country 2","id":2}
-{"accountStatus":"ACTIVE","countryName":"Country 3","id":3}
-{"accountStatus":"ACTIVE","countryName":"Country 4","id":4}
-{"accountStatus":"ACTIVE","countryName":"Country 5","id":5}
-{"accountStatus":"ACTIVE","countryName":"Country 6","id":6}
-{"accountStatus":"ACTIVE","countryName":"Country 7","id":7}
-{"accountStatus":"ACTIVE","countryName":"Country 8","id":8}
-{"accountStatus":"ACTIVE","countryName":"Country 9","id":9}
-{"accountStatus":"DELETED","countryName":"Russia","id":10}
-{"accountStatus":"ACTIVE","countryName":"Belarus","id":11}
-{"accountStatus":"ACTIVE","countryName":"Ukraine","id":12}
-{"accountStatus":"ACTIVE","countryName":"Russia","id":13}
-{"accountStatus":"BANNED","countryName":"USA","id":14}
-{"accountStatus":"ACTIVE","countryName":"UKRAINE","id":15}
+{"accountStatus":"BANNED","countryName":"Russia","isFree":false,"id":1}
+{"accountStatus":"ACTIVE","countryName":"Ukraine","isFree":false,"id":2}
+{"accountStatus":"ACTIVE","countryName":"Belarus","isFree":false,"id":3}

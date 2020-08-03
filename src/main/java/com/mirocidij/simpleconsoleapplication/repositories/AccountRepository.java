@@ -42,6 +42,7 @@ public class AccountRepository extends AbstractRepository<Account, Long> {
 
         accountToUpdate.setAccountStatus(account.getAccountStatus());
         accountToUpdate.setCountryName(account.getCountryName());
+        accountToUpdate.setFree(account.isFree());
         saveDataToFile(accounts);
         return account;
     }

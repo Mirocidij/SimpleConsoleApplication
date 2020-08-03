@@ -10,6 +10,8 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 public class Skill extends Entity<Long> {
+    public static Skill unknownSkill = new Skill("UNKNOWN SKILL");
+
     @Getter
     @Setter
     @NonNull

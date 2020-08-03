@@ -13,7 +13,7 @@ import java.util.Set;
 public class Developer extends Entity<Long> {
     @Getter
     @Setter
-    private transient Set<Skill> skills = new HashSet<>();
+    private Set<Skill> skills = new HashSet<>();
     @Getter
     @Setter
     private transient Account account;
@@ -31,12 +31,13 @@ public class Developer extends Entity<Long> {
     private String phoneNumber;
     @Getter
     @Setter
-    @NonNull
     private Set<Long> skillIds = new HashSet<>();
     @Getter
     @Setter
     @NonNull
     private Long accountId;
+
+    public Developer() {}
 
     @Override
     public String toString() {

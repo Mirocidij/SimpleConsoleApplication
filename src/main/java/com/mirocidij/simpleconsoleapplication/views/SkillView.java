@@ -126,7 +126,7 @@ public class SkillView extends AbstractView {
 
     private Long getSkillId(BufferedReader in) throws IOException {
         System.out.print("Skill id >> ");
-        var id = ParseUtils.TryParseLong(in.readLine());
+        var id = ParseUtils.tryParseLong(in.readLine());
 
         if (id == null) {
             System.out.println("Incorrect id");
@@ -134,6 +134,4 @@ public class SkillView extends AbstractView {
 
         return id;
     }
-
-
 }

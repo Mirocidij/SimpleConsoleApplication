@@ -3,6 +3,7 @@ package com.mirocidij.simpleconsoleapplication.repositories;
 import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Developer;
+import com.mirocidij.simpleconsoleapplication.models.Skill;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
 
 import java.util.List;
@@ -28,8 +29,18 @@ public class DeveloperRepository extends AbstractRepository<Developer, Long> {
         for (Developer developer : developers) {
             for (Long skillId : developer.getSkillIds()) {
                 var skill = skillRepository.getById(skillId);
+
+                if (skill == null) {
+                    developer.getSkills().add(Skill.unknownSkill);
+                    continue;
+                }
+
                 developer.getSkills().add(skill);
             }
+
+            var accountId = developer.getAccountId();
+            if (accountId != null)
+                developer.setAccount(accountRepository.getById(accountId));
         }
 
         return developers;
@@ -37,7 +48,24 @@ public class DeveloperRepository extends AbstractRepository<Developer, Long> {
 
     @Override
     public Developer getById(Long id) {
-        return EntityUtils.findById(id, getDataFromFile());
+        var developer = EntityUtils.findById(id, getDataFromFile());
+
+        for (Long skillId : developer.getSkillIds()) {
+            var skill = skillRepository.getById(skillId);
+
+            if (skill == null) {
+                developer.getSkills().add(Skill.unknownSkill);
+                continue;
+            }
+
+            developer.getSkills().add(skill);
+        }
+
+        var accountId = developer.getAccountId();
+        if (accountId != null)
+            developer.setAccount(accountRepository.getById(accountId));
+
+        return developer;
     }
 
     @Override
@@ -45,7 +73,6 @@ public class DeveloperRepository extends AbstractRepository<Developer, Long> {
         if (developer.getAccountId() == null) return null;
 
         var developers = getDataFromFile();
-
         developer.setId(getNextId(developers));
         developers.add(developer);
 

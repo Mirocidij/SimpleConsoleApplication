@@ -9,7 +9,7 @@ public class ParseUtils {
         }
     }
 
-    public static Long TryParseLong(String num) {
+    public static Long tryParseLong(String num) {
         try {
             return Long.parseLong(num);
         } catch (NumberFormatException e) {

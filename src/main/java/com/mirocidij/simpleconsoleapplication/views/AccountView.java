@@ -135,7 +135,7 @@ public class AccountView extends AbstractView {
 
     private Long getAccountId(BufferedReader in) throws IOException {
         System.out.print("Account id >> ");
-        var id = ParseUtils.TryParseLong(in.readLine());
+        var id = ParseUtils.tryParseLong(in.readLine());
 
         if (id == null) {
             System.out.println("Incorrect id");
