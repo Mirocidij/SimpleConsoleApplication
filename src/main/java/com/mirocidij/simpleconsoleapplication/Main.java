@@ -6,9 +6,9 @@ import com.mirocidij.simpleconsoleapplication.controllers.DeveloperController;
 import com.mirocidij.simpleconsoleapplication.controllers.SkillController;
 import com.mirocidij.simpleconsoleapplication.core.CLIManager;
 import com.mirocidij.simpleconsoleapplication.core.ICLIManager;
-import com.mirocidij.simpleconsoleapplication.repositories.JavaIOAccountRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.JavaIODeveloperRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.JavaIOSkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.AccountRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.DeveloperRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
 import com.mirocidij.simpleconsoleapplication.views.AccountView;
 import com.mirocidij.simpleconsoleapplication.views.DeveloperView;
 import com.mirocidij.simpleconsoleapplication.views.SkillView;
@@ -19,11 +19,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Gson gson = new Gson();
         // repo
-        JavaIOSkillRepository skillRepository = new JavaIOSkillRepository(gson, "skills.txt");
-        JavaIOAccountRepository accountRepository = new JavaIOAccountRepository(
-            gson, "accounts.txt");
-        JavaIODeveloperRepository developerRepository = new JavaIODeveloperRepository(
-            gson, "developers.txt");
+        SkillRepository skillRepository = new SkillRepository(gson, "skills.txt");
+        AccountRepository accountRepository = new AccountRepository(gson, "accounts.txt");
+        DeveloperRepository developerRepository =
+            new DeveloperRepository(gson, "developers.txt", skillRepository, accountRepository);
         // controllers
         SkillController skillController = new SkillController(skillRepository);
         AccountController accountController = new AccountController(accountRepository);

@@ -1,8 +1,5 @@
 package com.mirocidij.simpleconsoleapplication.views;
 
-import com.mirocidij.simpleconsoleapplication.models.Account;
-import com.mirocidij.simpleconsoleapplication.models.Developer;
-import com.mirocidij.simpleconsoleapplication.models.Skill;
 import com.mirocidij.simpleconsoleapplication.views.general.AbstractView;
 
 import java.io.BufferedReader;
@@ -26,9 +23,9 @@ public class GeneralView extends AbstractView {
     @Override
     public void process(String command, BufferedReader in) throws IOException {
         switch (command) {
-            case SKILLS -> cliManager.switchState(Skill.class);
-            case ACCOUNTS -> cliManager.switchState(Account.class);
-            case DEVELOPERS -> cliManager.switchState(Developer.class);
+            case SKILLS -> cliManager.switchState(SkillView.class);
+            case ACCOUNTS -> cliManager.switchState(AccountView.class);
+            case DEVELOPERS -> cliManager.switchState(DeveloperView.class);
             default -> super.process(command, in);
         }
     }

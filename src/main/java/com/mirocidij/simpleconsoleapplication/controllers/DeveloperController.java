@@ -1,11 +1,11 @@
 package com.mirocidij.simpleconsoleapplication.controllers;
 
-import com.mirocidij.simpleconsoleapplication.repositories.JavaIODeveloperRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.DeveloperRepository;
 
 public class DeveloperController {
-    private final JavaIODeveloperRepository developerRepository;
+    private final DeveloperRepository developerRepository;
 
-    public DeveloperController(JavaIODeveloperRepository developerRepository) {
+    public DeveloperController(DeveloperRepository developerRepository) {
 
         this.developerRepository = developerRepository;
     }

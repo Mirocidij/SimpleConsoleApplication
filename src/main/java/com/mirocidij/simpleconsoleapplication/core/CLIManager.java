@@ -13,7 +13,7 @@ import java.util.Objects;
 public class CLIManager implements ICLIManager {
     public final GeneralView generalView = new GeneralView();
     private IView state;
-    private final HashMap<Class, IView> viewResolver = new HashMap<>();
+    private final HashMap<Class<? extends IView>, IView> viewResolver = new HashMap<>();
 
     public CLIManager(IView... views) {
         if (
@@ -21,6 +21,7 @@ public class CLIManager implements ICLIManager {
         ) {
             throw new IllegalArgumentException();
         }
+
         generalView.init(this);
         viewResolver.put(GeneralView.class, generalView);
 
@@ -31,7 +32,7 @@ public class CLIManager implements ICLIManager {
     }
 
     @Override
-    public void switchState(Class viewType) {
+    public <T extends IView> void switchState(Class<T> viewType) {
         if (viewResolver.containsKey(viewType)) {
             setState(viewResolver.get(viewType));
         }

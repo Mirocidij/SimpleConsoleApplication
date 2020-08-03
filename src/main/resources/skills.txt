@@ -8,5 +8,4 @@
 {"skillName":"Reading habr in work time","id":11}
 {"skillName":"Another skill","id":12}
 {"skillName":"New Skill","id":14}
-{"skillName":"AAA","id":15}
 {"skillName":"Another skill via view","id":16}

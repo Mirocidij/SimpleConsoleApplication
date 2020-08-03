@@ -1,23 +1,22 @@
 package com.mirocidij.simpleconsoleapplication.repositories;
 
 import com.google.gson.Gson;
-import com.mirocidij.simpleconsoleapplication.generic.repository.GenericRepository;
 import com.mirocidij.simpleconsoleapplication.models.Developer;
-import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
-public class JavaIODeveloperRepository implements GenericRepository<Developer, Long> {
-    private final Path path;
-    private final String filePath;
-    private final Gson gson;
+public class DeveloperRepository extends AbstractRepository<Developer, Long> {
+    private final SkillRepository skillRepository;
+    private final AccountRepository accountRepository;
 
-    public JavaIODeveloperRepository(Gson gson, String fileName) {
-        this.gson = gson;
-        this.filePath = PathBuilder.buildPath(fileName);
-        this.path = Paths.get(filePath);
+    public DeveloperRepository(
+        Gson gson, String fileName,
+        SkillRepository skillRepository,
+        AccountRepository accountRepository
+    ) {
+        super(gson, fileName, Developer.class);
+        this.skillRepository = skillRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override

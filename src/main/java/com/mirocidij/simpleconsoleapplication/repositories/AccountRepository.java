@@ -2,11 +2,9 @@ package com.mirocidij.simpleconsoleapplication.repositories;
 
 import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
-import com.mirocidij.simpleconsoleapplication.generic.repository.GenericRepository;
 import com.mirocidij.simpleconsoleapplication.models.Account;
 import com.mirocidij.simpleconsoleapplication.models.AccountStatus;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
-import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,21 +12,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JavaIOAccountRepository implements GenericRepository<Account, Long> {
-    private final Path path;
-    private final String filePath;
-    private final Gson gson;
-
-    public JavaIOAccountRepository(Gson gson, String fileName) {
-        this.gson = gson;
-        this.filePath = PathBuilder.buildPath(fileName);
-        this.path = Paths.get(filePath);
+public class AccountRepository extends AbstractRepository<Account, Long> {
+    public AccountRepository(Gson gson, String fileName) {
+        super(gson, fileName, Account.class);
     }
 
     @Override
