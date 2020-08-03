@@ -26,7 +26,7 @@ public class SkillRepository extends AbstractRepository<Skill, Long> {
     public Skill save(Skill skill) {
         var skills = getDataFromFile();
 
-        skill.setId(getNextSkillId(skills));
+        skill.setId(getNextId(skills));
         skills.add(skill);
 
         saveDataToFile(skills);
@@ -57,7 +57,7 @@ public class SkillRepository extends AbstractRepository<Skill, Long> {
         return removed;
     }
 
-    private Long getNextSkillId(List<Skill> skills) {
+    private Long getNextId(List<Skill> skills) {
         return skills
             .stream()
             .map(Entity::getId)
