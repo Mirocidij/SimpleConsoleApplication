@@ -21,26 +21,13 @@ public class CLIManager implements ICLIManager {
         ) {
             throw new IllegalArgumentException();
         }
-
-        generalView.init(this);
+        generalView.setOnViewChangeListener(this::switchState);
         viewResolver.put(GeneralView.class, generalView);
 
         for (IView view : views) {
-            view.init(this);
+            view.setOnCloseListener(this::resetState);
             viewResolver.put(view.getClass(), view);
         }
-    }
-
-    @Override
-    public <T extends IView> void switchState(Class<T> viewType) {
-        if (viewResolver.containsKey(viewType)) {
-            setState(viewResolver.get(viewType));
-        }
-    }
-
-    @Override
-    public void resetState() {
-        setState(generalView);
     }
 
     @Override
@@ -58,6 +45,16 @@ public class CLIManager implements ICLIManager {
                 state.process(command, in);
             }
         }
+    }
+
+    private <T extends IView> void switchState(Class<T> viewType) {
+        if (viewResolver.containsKey(viewType)) {
+            setState(viewResolver.get(viewType));
+        }
+    }
+
+    private void resetState() {
+        setState(generalView);
     }
 
     private void setState(IView state) {

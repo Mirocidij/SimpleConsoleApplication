@@ -23,9 +23,9 @@ public class GeneralView extends AbstractView {
     @Override
     public void process(String command, BufferedReader in) throws IOException {
         switch (command) {
-            case SKILLS -> cliManager.switchState(SkillView.class);
-            case ACCOUNTS -> cliManager.switchState(AccountView.class);
-            case DEVELOPERS -> cliManager.switchState(DeveloperView.class);
+            case SKILLS -> onViewChangeListener.change(SkillView.class);
+            case ACCOUNTS -> onViewChangeListener.change(AccountView.class);
+            case DEVELOPERS -> onViewChangeListener.change(DeveloperView.class);
             default -> super.process(command, in);
         }
     }
