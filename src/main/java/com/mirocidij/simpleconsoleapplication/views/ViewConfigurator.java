@@ -10,7 +10,7 @@ import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
 import com.mirocidij.simpleconsoleapplication.views.general.IView;
 
 public class ViewConfigurator {
-    public static IView[] configure() {
+    public static IView[] getViews() {
         Gson gson = new Gson();
         // repo
         SkillRepository skillRepository = new SkillRepository(gson, "skills.txt");

@@ -15,7 +15,7 @@ public class CLIManager implements ICLIManager {
     private IView state;
     private final HashMap<Class<? extends IView>, IView> viewResolver = new HashMap<>();
 
-    public CLIManager(IView... views) {
+    public CLIManager addViews(IView... views) {
         if (
             Arrays.stream(views).anyMatch(Objects::isNull)
         ) {
@@ -28,6 +28,8 @@ public class CLIManager implements ICLIManager {
             view.setOnCloseListener(this::resetState);
             viewResolver.put(view.getClass(), view);
         }
+
+        return this;
     }
 
     @Override
