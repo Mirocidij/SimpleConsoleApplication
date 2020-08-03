@@ -9,6 +9,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         new CLIManager()
             .addViews(ViewConfigurator.getViews())
-            .start();
+            .run();
     }
 }

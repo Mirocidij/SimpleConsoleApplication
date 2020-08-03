@@ -33,7 +33,7 @@ public class CLIManager implements ICLIManager {
     }
 
     @Override
-    public void start() throws IOException {
+    public void run() throws IOException {
         resetState();
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(System.in))) {
