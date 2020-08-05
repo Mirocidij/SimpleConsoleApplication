@@ -1,8 +1,9 @@
-package com.mirocidij.simpleconsoleapplication.repositories;
+package com.mirocidij.simpleconsoleapplication.repositories.skill;
 
 import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
+import com.mirocidij.simpleconsoleapplication.repositories.AbstractRepository;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class SkillRepository extends AbstractRepository<Skill, Long> {
         var skills = getDataFromFile();
         var skillToUpdate = EntityUtils.findById(skill.getId(), skills);
 
-        skillToUpdate.setSkillName(skill.getSkillName());
+        skillToUpdate.setName(skill.getName());
         saveDataToFile(skills);
         return skillToUpdate;
     }

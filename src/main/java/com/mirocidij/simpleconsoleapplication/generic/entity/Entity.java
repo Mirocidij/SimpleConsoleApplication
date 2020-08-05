@@ -6,7 +6,7 @@ import lombok.Setter;
 public abstract class Entity<T extends Number> {
     @Getter
     @Setter
-    protected T id;
+    private T id;
 
     @Override
     public boolean equals(Object obj) {

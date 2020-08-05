@@ -1,12 +1,13 @@
 package com.mirocidij.simpleconsoleapplication.controllers;
 
+import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Account;
 import com.mirocidij.simpleconsoleapplication.models.AccountStatus;
 import com.mirocidij.simpleconsoleapplication.models.Developer;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
-import com.mirocidij.simpleconsoleapplication.repositories.AccountRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.DeveloperRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.account.AccountRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.DeveloperRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.skill.SkillRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +48,13 @@ public class DeveloperController {
         String phoneNumber,
         Long accountId
     ) {
-        var developer = new Developer(firstName, lastName, phoneNumber, accountId);
-
         var account = accountRepository.getById(accountId);
         if (account == null) return null;
         if (!account.isFree()) return null;
         account.setFree(false);
+
+        var developer = new Developer(firstName, lastName, phoneNumber);
+        developer.setAccount(account);
 
         accountRepository.update(account);
         return developerRepository.save(developer);
@@ -68,8 +70,7 @@ public class DeveloperController {
         var skill = skillRepository.getById(skillId);
         if (skill == null) return null;
 
-        developer.getSkills().add(skill);
-        var didNotContain = developer.getSkillIds().add(skill.getId());
+        var didNotContain = developer.getSkills().add(skill);
         developerRepository.update(developer);
 
         if (didNotContain)
@@ -87,7 +88,7 @@ public class DeveloperController {
             if (skill == null) return null;
             skills.add(skill);
         }
-        developer.getSkillIds().addAll(skillIds);
+
         developer.getSkills().addAll(skills);
         developerRepository.update(developer);
 
@@ -112,7 +113,7 @@ public class DeveloperController {
     public List<Developer> searchDevelopersBySkillId(Long skillId) {
         return developerRepository.getAll()
                                   .stream()
-                                  .filter(x -> x.getSkillIds().contains(skillId))
+                                  .filter(x -> skillsContainSkillId(x, skillId))
                                   .collect(Collectors.toList());
     }
 
@@ -128,5 +129,14 @@ public class DeveloperController {
                                   .stream()
                                   .filter(x -> x.getAccount().getAccountStatus() == AccountStatus.BANNED)
                                   .collect(Collectors.toList());
+    }
+
+    private boolean skillsContainSkillId(Developer developer, Long skillId) {
+        var skillIds = developer.getSkills()
+                                .stream()
+                                .map(Entity::getId)
+                                .collect(Collectors.toList());
+
+        return skillIds.contains(skillId);
     }
 }

@@ -1,0 +1,4 @@
+{"skills":[1, 2, 3],"account":{"id":2},"firstName":"Lex","lastName":"ITBeard","phoneNumber":"some number","id":1}
+{"skills":[4, 5, 6],"account":{"id":1},"firstName":"Sergey","lastName":"Yatsutko","phoneNumber":"some number","id":2}
+{"skills":[7, 8, 9],"account":{"id":3},"firstName":"Eugene","lastName":"Suleimanov","phoneNumber":"some number","id":3}
+{"skills":[10, 11, 12],"account":{"id":7},"firstName":"a","lastName":"a","phoneNumber":"a","id":4}

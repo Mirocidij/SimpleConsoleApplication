@@ -1,9 +1,10 @@
-package com.mirocidij.simpleconsoleapplication.repositories;
+package com.mirocidij.simpleconsoleapplication.repositories.account;
 
 import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Account;
 import com.mirocidij.simpleconsoleapplication.models.AccountStatus;
+import com.mirocidij.simpleconsoleapplication.repositories.AbstractRepository;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
 
 import java.util.List;

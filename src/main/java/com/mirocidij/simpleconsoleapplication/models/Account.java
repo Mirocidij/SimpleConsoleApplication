@@ -1,22 +1,22 @@
 package com.mirocidij.simpleconsoleapplication.models;
 
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
+@Data
 public class Account extends Entity<Long> {
-    @Getter
-    @Setter
+    public static Account unknownAccount = new Account("Unknown");
+
+    public Account() { }
+
     private AccountStatus accountStatus = AccountStatus.ACTIVE;
-    @Getter
-    @Setter
     @NonNull
     private String countryName;
-    @Getter
-    @Setter
     private boolean isFree = true;
 
     @Override
@@ -25,7 +25,7 @@ public class Account extends Entity<Long> {
             "accountStatus=" + accountStatus +
             ", countryName='" + countryName + '\'' +
             ", isFree=" + isFree +
-            ", id=" + id +
+            ", id=" + getId() +
             '}';
     }
 }

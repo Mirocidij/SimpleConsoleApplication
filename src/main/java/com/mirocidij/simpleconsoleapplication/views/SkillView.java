@@ -94,7 +94,7 @@ public class SkillView extends AbstractView {
         System.out.println("Current skill state: " + skillToEdit);
         System.out.print("New skill name >> ");
         var newSkillName = in.readLine();
-        skillToEdit.setSkillName(newSkillName);
+        skillToEdit.setName(newSkillName);
 
         var updatedSkill = skillController.updateSkill(skillToEdit);
         System.out.println("New skill state: " + updatedSkill);

@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.controllers.AccountController;
 import com.mirocidij.simpleconsoleapplication.controllers.DeveloperController;
 import com.mirocidij.simpleconsoleapplication.controllers.SkillController;
-import com.mirocidij.simpleconsoleapplication.repositories.AccountRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.DeveloperRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.account.AccountRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.DeveloperRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.skill.SkillRepository;
 import com.mirocidij.simpleconsoleapplication.views.general.IView;
 
 public class ViewConfigurator {

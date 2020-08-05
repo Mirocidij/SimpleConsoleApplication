@@ -1,41 +1,31 @@
 package com.mirocidij.simpleconsoleapplication.models;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
-import lombok.Getter;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.AccountAdapter;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.SkillAdapter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
+@Data
 public class Developer extends Entity<Long> {
-    @Getter
-    @Setter
+    @JsonAdapter(AccountAdapter.class)
+    private Account account;
+    @JsonAdapter(SkillAdapter.class)
     private Set<Skill> skills = new HashSet<>();
-    @Getter
-    @Setter
-    private transient Account account;
-    @Getter
-    @Setter
     @NonNull
     private String firstName;
-    @Getter
-    @Setter
     @NonNull
     private String lastName;
-    @Getter
-    @Setter
     @NonNull
     private String phoneNumber;
-    @Getter
-    @Setter
-    private Set<Long> skillIds = new HashSet<>();
-    @Getter
-    @Setter
-    @NonNull
-    private Long accountId;
 
     public Developer() {}
 
@@ -47,7 +37,7 @@ public class Developer extends Entity<Long> {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", phoneNumber='" + phoneNumber + '\'' +
-            ", id=" + id +
+            ", id=" + getId() +
             '}';
     }
 }

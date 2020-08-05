@@ -1,3 +1,1 @@
-{"skills":[],"firstName":"Lex","lastName":"ITBeard","phoneNumber":"some number","skillIds":[1],"accountId":2,"id":1}
-{"skills":[],"firstName":"Sergey","lastName":"Yatsutko","phoneNumber":"some number","skillIds":[1,8,11,10,12,14],"accountId":1,"id":2}
-{"skills":[],"firstName":"Eugene","lastName":"Suleimanov","phoneNumber":"some number","skillIds":[3,10,11,12,14],"accountId":3,"id":3}
+{"account":{"id":13},"skills":[{"id":1},{"id":2},{"id":3},{"id":5},{"id":6}],"firstName":"a","lastName":"a","phoneNumber":"a","id":1}

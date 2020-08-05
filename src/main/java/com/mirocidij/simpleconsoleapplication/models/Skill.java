@@ -1,32 +1,32 @@
 package com.mirocidij.simpleconsoleapplication.models;
 
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@Data
 public class Skill extends Entity<Long> {
     public static Skill unknownSkill = new Skill("UNKNOWN SKILL");
 
-    @Getter
-    @Setter
+    public Skill() {}
+
     @NonNull
-    private String skillName;
+    private String name;
 
     @Override
     public String toString() {
         return "Skill{" +
-            "skillName='" + skillName + '\'' +
-            ", id=" + id +
+            "name='" + name + '\'' +
+            ", id=" + getId() +
             '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getId());
     }
 }

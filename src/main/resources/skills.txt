@@ -1,11 +1,11 @@
-{"skillName":"Java","id":1}
-{"skillName":"C++","id":2}
-{"skillName":"C#","id":3}
-{"skillName":"Swift","id":5}
-{"skillName":"Ruby on rails","id":6}
-{"skillName":"Do nothing","id":8}
-{"skillName":"Kanban","id":10}
-{"skillName":"Reading habr in work time","id":11}
-{"skillName":"Another skill","id":12}
-{"skillName":"New Skill","id":14}
-{"skillName":"Another skill via view","id":16}
+{"name":"Java","id":1}
+{"name":"C++","id":2}
+{"name":"C#","id":3}
+{"name":"Swift","id":5}
+{"name":"Ruby on rails","id":6}
+{"name":"Do nothing","id":8}
+{"name":"Kanban","id":10}
+{"name":"Reading habr in work time","id":11}
+{"name":"Another skill","id":12}
+{"name":"New Skill","id":14}
+{"name":"Another skill via view","id":16}

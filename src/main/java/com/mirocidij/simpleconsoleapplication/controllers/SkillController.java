@@ -1,7 +1,7 @@
 package com.mirocidij.simpleconsoleapplication.controllers;
 
 import com.mirocidij.simpleconsoleapplication.models.Skill;
-import com.mirocidij.simpleconsoleapplication.repositories.SkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.skill.SkillRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +40,7 @@ public class SkillController {
 
         return skills
             .stream()
-            .filter(x -> x.getSkillName().contains(skillName))
+            .filter(x -> x.getName().contains(skillName))
             .collect(Collectors.toList());
     }
 }
