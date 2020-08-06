@@ -1,15 +1,15 @@
 package com.mirocidij.simpleconsoleapplication.controllers;
 
 import com.mirocidij.simpleconsoleapplication.models.Skill;
-import com.mirocidij.simpleconsoleapplication.repositories.skill.SkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.skill.JavaIOSkillRepositoryImp;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SkillController {
-    private final SkillRepository skillRepository;
+    private final JavaIOSkillRepositoryImp skillRepository;
 
-    public SkillController(SkillRepository skillRepository) {
+    public SkillController(JavaIOSkillRepositoryImp skillRepository) {
         this.skillRepository = skillRepository;
     }
 

@@ -4,19 +4,19 @@ import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.controllers.AccountController;
 import com.mirocidij.simpleconsoleapplication.controllers.DeveloperController;
 import com.mirocidij.simpleconsoleapplication.controllers.SkillController;
-import com.mirocidij.simpleconsoleapplication.repositories.account.AccountRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.developer.DeveloperRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.skill.SkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.account.JavaIOAccountRepositoryImpl;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.JavaIODeveloperRepositoryImpl;
+import com.mirocidij.simpleconsoleapplication.repositories.skill.JavaIOSkillRepositoryImp;
 import com.mirocidij.simpleconsoleapplication.views.general.IView;
 
 public class ViewConfigurator {
     public static IView[] getViews() {
         Gson gson = new Gson();
         // repo
-        SkillRepository skillRepository = new SkillRepository(gson, "skills.txt");
-        AccountRepository accountRepository = new AccountRepository(gson, "accounts.txt");
-        DeveloperRepository developerRepository =
-            new DeveloperRepository(gson, "developers.txt", skillRepository, accountRepository);
+        JavaIOSkillRepositoryImp skillRepository = new JavaIOSkillRepositoryImp(gson, "skills.txt");
+        JavaIOAccountRepositoryImpl accountRepository = new JavaIOAccountRepositoryImpl(gson, "accounts.txt");
+        JavaIODeveloperRepositoryImpl developerRepository =
+            new JavaIODeveloperRepositoryImpl(gson, "developers.txt", skillRepository, accountRepository);
         // controllers
         SkillController skillController = new SkillController(skillRepository);
         AccountController accountController = new AccountController(accountRepository);

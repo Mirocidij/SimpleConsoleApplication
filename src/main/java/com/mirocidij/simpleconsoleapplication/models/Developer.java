@@ -2,8 +2,8 @@ package com.mirocidij.simpleconsoleapplication.models;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
-import com.mirocidij.simpleconsoleapplication.repositories.developer.AccountAdapter;
-import com.mirocidij.simpleconsoleapplication.repositories.developer.SkillAdapter;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.gson.AccountAdapter;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.gson.SkillAdapter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

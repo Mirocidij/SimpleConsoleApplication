@@ -2,15 +2,15 @@ package com.mirocidij.simpleconsoleapplication.controllers;
 
 import com.mirocidij.simpleconsoleapplication.models.Account;
 import com.mirocidij.simpleconsoleapplication.models.AccountStatus;
-import com.mirocidij.simpleconsoleapplication.repositories.account.AccountRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.account.JavaIOAccountRepositoryImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AccountController {
-    private final AccountRepository accountRepository;
+    private final JavaIOAccountRepositoryImpl accountRepository;
 
-    public AccountController(AccountRepository accountRepository) {
+    public AccountController(JavaIOAccountRepositoryImpl accountRepository) {
         this.accountRepository = accountRepository;
     }
 

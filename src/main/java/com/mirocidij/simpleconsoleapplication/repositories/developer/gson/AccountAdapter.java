@@ -1,4 +1,4 @@
-package com.mirocidij.simpleconsoleapplication.repositories.developer;
+package com.mirocidij.simpleconsoleapplication.repositories.developer.gson;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

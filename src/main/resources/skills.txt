@@ -9,3 +9,4 @@
 {"name":"Another skill","id":12}
 {"name":"New Skill","id":14}
 {"name":"Another skill via view","id":16}
+{"name":"Yet another skill","id":17}

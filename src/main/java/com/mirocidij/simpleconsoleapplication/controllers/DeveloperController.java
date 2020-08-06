@@ -5,23 +5,23 @@ import com.mirocidij.simpleconsoleapplication.models.Account;
 import com.mirocidij.simpleconsoleapplication.models.AccountStatus;
 import com.mirocidij.simpleconsoleapplication.models.Developer;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
-import com.mirocidij.simpleconsoleapplication.repositories.account.AccountRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.developer.DeveloperRepository;
-import com.mirocidij.simpleconsoleapplication.repositories.skill.SkillRepository;
+import com.mirocidij.simpleconsoleapplication.repositories.account.JavaIOAccountRepositoryImpl;
+import com.mirocidij.simpleconsoleapplication.repositories.developer.JavaIODeveloperRepositoryImpl;
+import com.mirocidij.simpleconsoleapplication.repositories.skill.JavaIOSkillRepositoryImp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DeveloperController {
-    private final DeveloperRepository developerRepository;
-    private final SkillRepository skillRepository;
-    private final AccountRepository accountRepository;
+    private final JavaIODeveloperRepositoryImpl developerRepository;
+    private final JavaIOSkillRepositoryImp skillRepository;
+    private final JavaIOAccountRepositoryImpl accountRepository;
 
     public DeveloperController(
-        DeveloperRepository developerRepository,
-        SkillRepository skillRepository,
-        AccountRepository accountRepository
+        JavaIODeveloperRepositoryImpl developerRepository,
+        JavaIOSkillRepositoryImp skillRepository,
+        JavaIOAccountRepositoryImpl accountRepository
     ) {
         this.developerRepository = developerRepository;
         this.skillRepository = skillRepository;
