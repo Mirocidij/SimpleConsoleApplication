@@ -3,6 +3,7 @@ package com.mirocidij.simpleconsoleapplication.repositories.skill;
 import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
+import com.mirocidij.simpleconsoleapplication.repositories.AbstractRepository;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
 import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JavaIOSkillRepositoryImp implements SkillRepository {
+public class JavaIOSkillRepositoryImp extends AbstractRepository<Skill, Long> implements SkillRepository {
     private final Path path;
     private final String filePath;
     private final Gson gson;

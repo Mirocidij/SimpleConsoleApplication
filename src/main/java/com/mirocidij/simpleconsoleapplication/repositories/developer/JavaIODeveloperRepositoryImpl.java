@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Developer;
 import com.mirocidij.simpleconsoleapplication.models.Skill;
+import com.mirocidij.simpleconsoleapplication.repositories.AbstractRepository;
 import com.mirocidij.simpleconsoleapplication.repositories.account.JavaIOAccountRepositoryImpl;
 import com.mirocidij.simpleconsoleapplication.repositories.skill.JavaIOSkillRepositoryImp;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
@@ -22,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JavaIODeveloperRepositoryImpl implements DeveloperRepository {
+public class JavaIODeveloperRepositoryImpl extends AbstractRepository<Developer, Long> implements DeveloperRepository {
     private final Path path;
     private final String filePath;
     private final Gson gson;

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.mirocidij.simpleconsoleapplication.generic.entity.Entity;
 import com.mirocidij.simpleconsoleapplication.models.Account;
 import com.mirocidij.simpleconsoleapplication.models.AccountStatus;
+import com.mirocidij.simpleconsoleapplication.repositories.AbstractRepository;
 import com.mirocidij.simpleconsoleapplication.utils.EntityUtils;
 import com.mirocidij.simpleconsoleapplication.utils.PathBuilder;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JavaIOAccountRepositoryImpl implements AccountRepository {
+public class JavaIOAccountRepositoryImpl extends AbstractRepository<Account, Long> implements AccountRepository {
     private final Path path;
     private final String filePath;
     private final Gson gson;
