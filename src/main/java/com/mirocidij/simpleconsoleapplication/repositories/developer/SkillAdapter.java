@@ -20,15 +20,11 @@ public class SkillAdapter extends TypeAdapter<Set<Skill>> {
         }
 
         out.beginArray();
-
         for (Skill skill : skills) {
             out.beginObject();
-
             out.name("id").value(skill.getId());
-
             out.endObject();
         }
-
         out.endArray();
     }
 
@@ -44,19 +40,16 @@ public class SkillAdapter extends TypeAdapter<Set<Skill>> {
             var skills = new HashSet<Skill>();
 
             while (in.hasNext()) {
-                var skill = new Skill();
-
+                Skill skill = new Skill();
                 in.beginObject();
 
                 GsonUtil.mapId(skill, in);
 
                 in.endObject();
-
                 skills.add(skill);
             }
 
             in.endArray();
-
             return skills;
         }
 

@@ -18,8 +18,7 @@ public class AccountAdapter extends TypeAdapter<Account> {
         }
 
         out.beginObject();
-        out.name("id");
-        out.value(account.getId());
+        out.name("id").value(account.getId());
         out.endObject();
     }
 
@@ -32,13 +31,11 @@ public class AccountAdapter extends TypeAdapter<Account> {
 
         if (in.peek() == JsonToken.BEGIN_OBJECT) {
             in.beginObject();
-
             var account = new Account();
 
             GsonUtil.mapId(account, in);
 
             in.endObject();
-
             return account;
         }
 
